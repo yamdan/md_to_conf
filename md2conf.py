@@ -786,7 +786,9 @@ def main():
 
     with codecs.open(MARKDOWN_FILE, 'r', 'utf-8') as mdfile:
         html = markdown.markdown(mdfile.read(), extensions=['markdown.extensions.tables',
-                                                       'markdown.extensions.fenced_code'])
+                                                       'markdown.extensions.fenced_code',
+                                                       'markdown.extensions.footnotes',
+                                                       'markdown.extensions.attr_list'])
 
     html = '\n'.join(html.split('\n')[1:])
 
