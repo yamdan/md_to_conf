@@ -773,6 +773,7 @@ def upload_attachment(page_id, file, comment):
     if re.search('http.*', file):
         return False
 
+    file = urllib.parse.unquote(file)
     content_type = mimetypes.guess_type(file)[0]
     filename = os.path.basename(file)
 
