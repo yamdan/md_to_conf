@@ -146,6 +146,42 @@ def convert_code_block(html):
     :param html: string
     :return: modified html string
     """
+    # languages supported by Confluence
+    # ref: <https://ecosystem.atlassian.net/wiki/spaces/NCODE/overview>
+    supported_langs = {
+        'actionscript3', 'as3',
+        'applescript',
+        'bash', 'shell',
+        'csharp', 'c-sharp', 'c#',
+        'cpp', 'c',
+        'css',
+        'coldfusion', 'cf',
+        'delphi', 'pas', 'pascal',
+        'diff', 'patch',
+        'erlang', 'erl',
+        'groovy',
+        'java',
+        'javafx',
+        'js', 'jscript', 'javascript',
+        'perl', 'pl',
+        'php',
+        'plain', 'text', 'none',
+        'powershell', 'ps',
+        'py', 'python',
+        'rails', 'ror', 'ruby', 'rb',
+        'scala',
+        'sql',
+        'sass',
+        'vb', 'vbnet',
+        'xml', 'xhtml', 'xslt', 'html',
+    }
+
+    # other langs to be mapped sth rather than 'none'
+    extra_langs = {
+        'json': 'js',
+        'shell-session': 'shell',
+    }
+
     code_blocks = re.findall(r'<pre><code.*?>.*?</code></pre>', html, re.DOTALL)
     if code_blocks:
         for tag in code_blocks:
@@ -157,6 +193,8 @@ def convert_code_block(html):
             lang = re.search('code class="(.*)"', tag)
             if lang:
                 lang = lang.group(1)
+                if lang not in supported_langs:
+                    lang = extra_langs.get(lang, 'none')
             else:
                 lang = 'none'
 
