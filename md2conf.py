@@ -778,7 +778,7 @@ def main():
     LOGGER.info('Markdown file:\t%s', MARKDOWN_FILE)
     LOGGER.info('Space Key:\t%s', SPACE_KEY)
 
-    with open(MARKDOWN_FILE, 'r') as mdfile:
+    with open(MARKDOWN_FILE, 'r', encoding='utf-8') as mdfile:
         title = mdfile.readline().lstrip('#').strip()
         mdfile.seek(0)
 
